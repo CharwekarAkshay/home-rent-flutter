@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:room_rent/constants.dart';
 
+import 'favourite_button_component.dart';
+import 'location_description_component.dart';
+import 'maps_finder_button_component.dart';
+
 class LocationDetailCardComponent extends StatefulWidget {
   const LocationDetailCardComponent({
     Key? key,
@@ -18,7 +22,7 @@ class _LocationDetailCardComponentState
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.8);
+    _pageController = PageController(viewportFraction: 1);
   }
 
   @override
@@ -36,11 +40,37 @@ class _LocationDetailCardComponentState
         itemCount: 4,
         itemBuilder: (context, index) {
           return Container(
-            width: size.width * 0.8,
             margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+            padding: const EdgeInsets.symmetric(
+              vertical: defaultPadding,
+              horizontal: defaultPadding,
+            ),
             decoration: BoxDecoration(
-              color: Colors.lightGreen,
+              image: DecorationImage(
+                image: AssetImage("assets/images/dummy_home.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.srgbToLinearGamma(),
+              ),
               borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(defaultPadding / 2),
+                      decoration: BoxDecoration(
+                        color: fontColor.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: MapsFinderButtonComponent(),
+                    )
+                  ],
+                ),
+                LocationDescriptionComponent(),
+              ],
             ),
           );
         },
@@ -48,3 +78,4 @@ class _LocationDetailCardComponentState
     );
   }
 }
+
