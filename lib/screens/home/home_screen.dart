@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:room_rent/constants.dart';
 
 import 'components/header_component.dart';
+import 'components/navigation_button_component.dart';
 import 'components/search_component.dart';
 
 class HomeScreen extends StatefulWidget {
   static final routeName = "/";
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -42,42 +43,49 @@ class _HomeScreenState extends State<HomeScreen> {
           color: fontColor,
           borderRadius: BorderRadius.circular(15),
         ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            NavigationButtonComponent(
+              icon: Icons.home,
+              selectedIcon: Icons.home_filled,
+              isActive: _currentIndex == 0,
+              onTap: () {
+                setState(() {
+                  _currentIndex = 0;
+                });
+              },
+            ),
+            NavigationButtonComponent(
+                icon: Icons.favorite_border,
+                selectedIcon: Icons.favorite,
+                isActive: _currentIndex == 1,
+                onTap: () {
+                  setState(() {
+                    _currentIndex = 1;
+                  });
+                }),
+            NavigationButtonComponent(
+                icon: Icons.shopping_cart_outlined,
+                selectedIcon: Icons.shopping_cart,
+                isActive: _currentIndex == 2,
+                onTap: () {
+                  setState(() {
+                    _currentIndex = 2;
+                  });
+                }),
+            NavigationButtonComponent(
+                icon: Icons.account_circle_outlined,
+                selectedIcon: Icons.account_circle,
+                isActive: _currentIndex == 3,
+                onTap: () {
+                  setState(() {
+                    _currentIndex = 3;
+                  });
+                }),
+          ],
+        ),
       ),
     );
   }
 }
-
-
-/**
- * 
- *  bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: fontColor,
-        ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.shifting,
-          selectedItemColor: Colors.amber,
-          unselectedItemColor: Colors.red,
-          showSelectedLabels: false,
-          
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
-              label: 'Business',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: 'School',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'School',
-            ),
-          ],
-        ),
-      ),
- */
